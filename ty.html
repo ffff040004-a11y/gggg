@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مصطلحات إنجليزية في التدريب</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy2: #0f2040;
+    --navy3: #162a52;
+    --gold: #c9a84c;
+    --gold2: #e8c76a;
+    --gold3: #f5dfa0;
+    --light: #f0f4ff;
+    --white: #ffffff;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy3) 50%, #0d1f3c 100%);
+    padding: 40px 20px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid var(--gold);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.15) 0%, transparent 70%);
+  }
+  .hero-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(201,168,76,0.5));
+  }
+  .hero h1 {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: 900;
+    color: var(--gold2);
+    text-shadow: 0 0 30px rgba(201,168,76,0.4);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .hero p {
+    font-size: clamp(14px, 3vw, 18px);
+    color: var(--gold3);
+    opacity: 0.85;
+  }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy);
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+
+  /* ─── TABS ─── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    padding: 20px 20px 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px 10px;
+    border: none;
+    border-radius: 12px 12px 0 0;
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(13px, 2.5vw, 16px);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    letter-spacing: 0.3px;
+  }
+  .tab-btn.browse {
+    background: rgba(201,168,76,0.1);
+    color: var(--gold3);
+    border: 2px solid rgba(201,168,76,0.3);
+    border-bottom: none;
+    margin-left: 4px;
+  }
+  .tab-btn.quiz {
+    background: rgba(139,92,246,0.1);
+    color: #c4b5fd;
+    border: 2px solid rgba(139,92,246,0.3);
+    border-bottom: none;
+    margin-right: 4px;
+  }
+  .tab-btn.active.browse {
+    background: linear-gradient(180deg, rgba(201,168,76,0.25) 0%, rgba(201,168,76,0.1) 100%);
+    color: var(--gold2);
+    border-color: var(--gold);
+    box-shadow: 0 -4px 20px rgba(201,168,76,0.2);
+  }
+  .tab-btn.active.quiz {
+    background: linear-gradient(180deg, rgba(139,92,246,0.25) 0%, rgba(139,92,246,0.1) 100%);
+    color: #ddd6fe;
+    border-color: #8b5cf6;
+    box-shadow: 0 -4px 20px rgba(139,92,246,0.2);
+  }
+
+  /* ─── MAIN PANEL ─── */
+  .panel {
+    max-width: 900px;
+    margin: 0 auto 0;
+    background: rgba(15,32,64,0.95);
+    border-radius: 0 0 16px 16px;
+    border: 2px solid rgba(201,168,76,0.2);
+    border-top: none;
+    padding: 24px 20px;
+    display: none;
+  }
+  .panel.active { display: block; }
+
+  /* ─── BROWSE ─── */
+  .search-box {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 12px 48px 12px 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(201,168,76,0.3);
+    border-radius: 10px;
+    color: var(--white);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.3s;
+  }
+  .search-box input:focus { border-color: var(--gold); }
+  .search-box input::placeholder { color: rgba(255,255,255,0.35); }
+  .search-box .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
+
+  .stats-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .stat-chip {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--gold3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ─── SORT BAR ─── */
+  .sort-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .sort-label { font-size: 13px; color: var(--gold3); margin-left: 4px; }
+  .sort-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.06);
+    color: var(--gold3);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .sort-btn.active, .sort-btn:hover {
+    background: rgba(201,168,76,0.2);
+    border-color: var(--gold);
+    color: var(--gold2);
+  }
+
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .term-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(201,168,76,0.04) 100%);
+    border: 1.5px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .term-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .term-card:hover {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.04) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.15);
+  }
+  .term-card:hover::before { opacity: 1; }
+  .term-en {
+    font-size: clamp(14px, 2.5vw, 17px);
+    font-weight: 700;
+    color: var(--gold2);
+    margin-bottom: 6px;
+    direction: ltr;
+    text-align: left;
+  }
+  .term-ar {
+    font-size: clamp(13px, 2vw, 15px);
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+  .term-num {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 11px;
+    color: rgba(201,168,76,0.4);
+    font-weight: 700;
+  }
+  .speak-icon {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    font-size: 16px;
+    opacity: 0.35;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .term-card:hover .speak-icon { opacity: 0.8; transform: scale(1.2); }
+  .term-card.speaking {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 22px rgba(34,197,94,0.35) !important;
+  }
+  .term-card.speaking .speak-icon { opacity: 1; animation: speakPulse 0.5s infinite alternate; }
+  @keyframes speakPulse { from { transform: scale(1); } to { transform: scale(1.5); } }
+  .speak-hint {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .voice-selector-wrap {
+    background: rgba(34,197,94,0.06);
+    border: 1.5px solid rgba(34,197,94,0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .voice-selector-wrap label {
+    font-size: 13px;
+    color: #86efac;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .voice-selector-wrap select {
+    flex: 1;
+    min-width: 160px;
+    padding: 7px 12px;
+    background: rgba(0,0,0,0.3);
+    border: 1.5px solid rgba(34,197,94,0.3);
+    border-radius: 8px;
+    color: #d1fae5;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+  }
+  .voice-selector-wrap select:focus { border-color: #22c55e; }
+  .voice-test-btn {
+    padding: 7px 14px;
+    background: rgba(34,197,94,0.15);
+    border: 1.5px solid rgba(34,197,94,0.4);
+    border-radius: 8px;
+    color: #86efac;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .voice-test-btn:hover { background: rgba(34,197,94,0.25); }
+
+  /* ─── QUIZ ─── */
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .quiz-mode-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .mode-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.08);
+    color: #c4b5fd;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .mode-btn.active, .mode-btn:hover {
+    background: rgba(139,92,246,0.25);
+    border-color: #8b5cf6;
+    color: #ddd6fe;
+  }
+
+  .progress-wrap {
+    margin-bottom: 20px;
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--gold3);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  .score-badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .score-badge {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .score-badge.correct { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
+  .score-badge.wrong   { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+  .score-badge.remain  { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: #93c5fd; }
+
+  .question-card {
+    background: linear-gradient(135deg, rgba(139,92,246,0.06) 0%, rgba(59,130,246,0.06) 100%);
+    border: 1.5px solid rgba(139,92,246,0.25);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .question-card::before {
+    content: '❓';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    opacity: 0.06;
+  }
+  .question-label {
+    font-size: 12px;
+    color: #a78bfa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .question-text {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(18px, 4vw, 28px);
+    font-weight: 800;
+    color: var(--white);
+    direction: ltr;
+    line-height: 1.3;
+  }
+  .question-text.arabic-q {
+    direction: rtl;
+    font-size: clamp(16px, 3.5vw, 24px);
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  @media(max-width: 480px) { .options-grid { grid-template-columns: 1fr; } }
+
+  .option-btn {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1.5px solid rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.06);
+    color: var(--white);
+    font-family: 'Tajawal', sans-serif;
+    font-size: clamp(13px, 2.5vw, 15px);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+    line-height: 1.4;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-btn:hover:not(:disabled) {
+    background: rgba(139,92,246,0.2);
+    border-color: #8b5cf6;
+    transform: scale(1.02);
+  }
+  .option-btn.correct-ans {
+    background: rgba(34,197,94,0.18);
+    border-color: #22c55e;
+    color: #bbf7d0;
+    box-shadow: 0 0 20px rgba(34,197,94,0.2);
+  }
+  .option-btn.wrong-ans {
+    background: rgba(239,68,68,0.18);
+    border-color: #ef4444;
+    color: #fecaca;
+    box-shadow: 0 0 20px rgba(239,68,68,0.2);
+  }
+  .option-btn:disabled { cursor: default; }
+
+  .feedback-box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    text-align: center;
+    font-size: clamp(15px, 3vw, 18px);
+    font-weight: 700;
+    display: none;
+    animation: popIn 0.4s ease;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .feedback-box.show { display: block; }
+  .feedback-box.correct-fb { background: rgba(34,197,94,0.15); border: 1.5px solid rgba(34,197,94,0.3); color: #86efac; }
+  .feedback-box.wrong-fb   { background: rgba(239,68,68,0.15); border: 1.5px solid rgba(239,68,68,0.3); color: #fca5a5; }
+
+  .quiz-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    padding: 11px 24px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(13px, 2.5vw, 15px);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .action-btn.next {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+  }
+  .action-btn.next:hover { background: linear-gradient(135deg, #7c3aed, #5b21b6); transform: scale(1.04); }
+  .action-btn.restart {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy);
+  }
+  .action-btn.restart:hover { transform: scale(1.04); }
+  .action-btn:disabled { opacity: 0.4; cursor: default; transform: none !important; }
+
+  /* ─── FINAL SCORE ─── */
+  .final-score {
+    text-align: center;
+    padding: 30px 20px;
+    display: none;
+  }
+  .final-score.show { display: block; }
+  .final-score .trophy { font-size: 72px; margin-bottom: 12px; }
+  .final-score h2 { font-family: 'Cairo', sans-serif; font-size: 28px; font-weight: 900; color: var(--gold2); margin-bottom: 8px; }
+  .final-score p { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+  .score-ring {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(var(--gold) 0%, var(--gold2) var(--pct), rgba(255,255,255,0.08) var(--pct));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    font-family: 'Cairo', sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--gold2);
+    box-shadow: 0 0 40px rgba(201,168,76,0.3);
+  }
+
+  /* ─── SETTINGS ─── */
+  .settings-bar {
+    max-width: 900px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .settings-left {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .setting-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .setting-chip:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+  .setting-chip input[type=checkbox] { accent-color: var(--gold); cursor: pointer; }
+
+  .designer-credit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    flex-wrap: wrap;
+  }
+  .designer-credit a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+  }
+  .designer-credit a:hover { color: var(--gold2); }
+  .sep { color: rgba(255,255,255,0.2); }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 24px 20px;
+    color: rgba(255,255,255,0.3);
+    font-size: 12px;
+  }
+
+  /* ─── CONFETTI ─── */
+  .confetti-piece {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    pointer-events: none;
+    animation: confettiFall linear forwards;
+    z-index: 999;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  @media print { .tabs, .settings-bar, .footer { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-icon">📘</span>
+  <h1>مصطلحات إنجليزية في التدريب</h1>
+  <p>إعداد د. سلمان سالم المالكي</p>
+  <div class="badge">🎓 منصة تعليمية تفاعلية</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn browse active" onclick="switchTab('browse')">📖 استعراض المصطلحات</button>
+  <button class="tab-btn quiz" onclick="switchTab('quiz')">🏆 مسابقة الإثارة</button>
+</div>
+
+<!-- ══════ BROWSE PANEL ══════ -->
+<div class="panel active" id="browsePanel">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="ابحث بالمصطلح الإنجليزي أو الترجمة العربية..." oninput="filterTerms()">
+    <span class="icon">🔍</span>
+  </div>
+  <div class="sort-bar">
+    <span class="sort-label">🔤 الترتيب:</span>
+    <button class="sort-btn active" id="sortDefault" onclick="setSort('default')">الأصلي</button>
+    <button class="sort-btn" id="sortAZ" onclick="setSort('az')">A → Z</button>
+    <button class="sort-btn" id="sortZA" onclick="setSort('za')">Z → A</button>
+  </div>
+  <div class="speak-hint">🔊 اضغط على أي بطاقة للاستماع إلى نطق المصطلح الإنجليزي</div>
+  <div class="voice-selector-wrap">
+    <label>🎙️ الصوت:</label>
+    <select id="voiceSelect" onchange="onVoiceChange()">
+      <option value="">جارٍ تحميل الأصوات...</option>
+    </select>
+    <button class="voice-test-btn" onclick="testVoice()">▶ اختبار</button>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-chip">📊 <span id="totalCount">0</span> مصطلح</div>
+    <div class="stat-chip">🔎 نتائج البحث: <span id="filteredCount">0</span></div>
+  </div>
+  <div class="terms-grid" id="termsGrid"></div>
+</div>
+
+<!-- ══════ QUIZ PANEL ══════ -->
+<div class="panel" id="quizPanel">
+  <div class="quiz-header">
+    <div class="quiz-mode-selector">
+      <button class="mode-btn active" id="modeEn" onclick="setMode('en')">🔤 اترجم للعربي</button>
+      <button class="mode-btn" id="modeAr" onclick="setMode('ar')">🌐 اترجم للإنجليزي</button>
+      <button class="mode-btn" id="modeMix" onclick="setMode('mix')">🔀 مختلط</button>
+    </div>
+  </div>
+
+  <div class="score-badges">
+    <div class="score-badge correct">✅ <span id="correctCount">0</span></div>
+    <div class="score-badge wrong">❌ <span id="wrongCount">0</span></div>
+    <div class="score-badge remain">⏳ <span id="remainCount">0</span></div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-info">
+      <span>السؤال <span id="qNum">0</span> من <span id="qTotal">0</span></span>
+      <span id="pctText">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <div id="quizArea">
+    <div class="question-card">
+      <div class="question-label">ما هي الترجمة الصحيحة؟</div>
+      <div class="question-text" id="questionText"></div>
+    </div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="feedback-box" id="feedbackBox"></div>
+    <div class="quiz-actions">
+      <button class="action-btn next" id="nextBtn" onclick="nextQuestion()" disabled>التالي ←</button>
+      <button class="action-btn restart" onclick="restartQuiz()">🔄 إعادة</button>
+    </div>
+  </div>
+
+  <div class="final-score" id="finalScore">
+    <div class="trophy" id="trophyEmoji">🏆</div>
+    <h2 id="finalTitle">أحسنت!</h2>
+    <p id="finalMsg"></p>
+    <div class="score-ring" id="scoreRing">0%</div>
+    <div class="quiz-actions">
+      <button class="action-btn restart" onclick="restartQuiz()">🔄 العب مجدداً</button>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS BAR -->
+<div class="settings-bar">
+  <div class="settings-left">
+    <label class="setting-chip">
+      <input type="checkbox" id="shuffleCheck" checked onchange="restartQuiz()"> 🔀 ترتيب عشوائي
+    </label>
+    <label class="setting-chip">
+      <input type="checkbox" id="soundCheck" checked> 🔊 أصوات
+    </label>
+    <span class="setting-chip" onclick="restartQuiz()">🔄 إعادة المسابقة</span>
+  </div>
+  <div class="designer-credit">
+    <span>تصميم د/فواز</span>
+    <span class="sep">|</span>
+    <a href="https://t.me/TAqhjT3MFVE1Yzk0" target="_blank">تفضل للمزيد هنا 📲</a>
+  </div>
+</div>
+
+<div class="footer">منصة مصطلحات إنجليزية في التدريب • إعداد د. سلمان سالم المالكي</div>
+
+<script>
+const TERMS = [
+  {en:"Training",ar:"تدريب"},
+  {en:"Learning",ar:"تعليم"},
+  {en:"Cognitive",ar:"معرفي"},
+  {en:"Affective",ar:"وجداني"},
+  {en:"Psychomotor",ar:"مهاري"},
+  {en:"Power BI",ar:"تحليل البيانات وذكاء الأعمال"},
+  {en:"PREZI",ar:"عرض شرائح مثل بوربوينت"},
+  {en:"Trello",ar:"تنظيم مهام"},
+  {en:"To do",ar:"تنظيم مهام"},
+  {en:"AI = Artificial Intelligence",ar:"الذكاء الاصطناعي"},
+  {en:"Scorm",ar:"معايير تعليم إلكتروني"},
+  {en:"LMS = Learning Management System",ar:"نظام إدارة تعلم"},
+  {en:"TNA = Training Needs Analysis",ar:"تحليل احتياجات التدريب"},
+  {en:"Gap Analysis",ar:"تحليل الفجوة"},
+  {en:"ROI",ar:"العائد على الاستثمار"},
+  {en:"Micro learning",ar:"التعلم المصغر"},
+  {en:"Module",ar:"وحدة تعليمية"},
+  {en:"Google Drive / OneDrive / iCloud",ar:"ذاكرة سحابية"},
+  {en:"API",ar:"الواجهة البرمجية للمستخدم"},
+  {en:"Project Based Learning (PBL)",ar:"التعلم بالمشاريع"},
+  {en:"Case Study",ar:"دراسة الحالة"},
+  {en:"Simulation",ar:"محاكاة"},
+  {en:"Role Playing",ar:"لعب الأدوار"},
+  {en:"Modeling",ar:"النمذجة"},
+  {en:"Brainstorming",ar:"العصف الذهني"},
+  {en:"Demonstration",ar:"التوضيح العملي"},
+  {en:"Coaching & Mentoring",ar:"التوجيه والإشراف"},
+  {en:"Interactive",ar:"تفاعلي"},
+  {en:"Immersion",ar:"انغماس"},
+  {en:"VR = Virtual Reality",ar:"الواقع الافتراضي"},
+  {en:"AR = Augmented Reality",ar:"الواقع المعزز"},
+  {en:"Extended Reality",ar:"الواقع الممتد"},
+  {en:"Active Learning",ar:"التعلم النشط"},
+  {en:"Experiential Learning",ar:"التعلم التجريبي"},
+  {en:"Pedagogy",ar:"علم أصول التدريس"},
+  {en:"Andragogy",ar:"تعليم الكبار"},
+  {en:"Heutagogy",ar:"التعلم الموجه ذاتيًا"},
+  {en:"Rubrics",ar:"معايير تقييم"},
+  {en:"Feedback",ar:"تغذية راجعة"},
+  {en:"Observation",ar:"ملاحظة"},
+  {en:"Polls",ar:"تصويت"},
+  {en:"Reaction",ar:"رد الفعل"},
+  {en:"Behavior",ar:"السلوك"},
+  {en:"Results",ar:"النتائج"},
+  {en:"ADDIE",ar:"نموذج أدي"},
+  {en:"Analysis",ar:"التحليل"},
+  {en:"Design",ar:"التصميم"},
+  {en:"Development",ar:"التطوير"},
+  {en:"Implementation",ar:"التنفيذ"},
+  {en:"Evaluation",ar:"التقييم"},
+  {en:"Accelerated Learning",ar:"التعلم المتسارع"},
+  {en:"Suggestopedia",ar:"الإيحاء التعليمي"},
+  {en:"SMART Objectives",ar:"الأهداف الذكية"},
+  {en:"Specific",ar:"محدد"},
+  {en:"Measurable",ar:"قابل للقياس"},
+  {en:"Achievable",ar:"قابل للتحقيق"},
+  {en:"Relevant",ar:"ذو صلة"},
+  {en:"Time-bound",ar:"محدد بزمن"},
+  {en:"Blueprint",ar:"خريطة البرنامج"},
+  {en:"Slides",ar:"شرائح عرض"},
+  {en:"Pilot Training",ar:"تدريب تجريبي"},
+  {en:"Formative Evaluation",ar:"تقييم تكويني"},
+  {en:"Summative Evaluation",ar:"تقييم ختامي"},
+  {en:"Report Impact",ar:"تقرير الأثر"},
+  {en:"State Relaxed",ar:"حالة الاسترخاء"},
+  {en:"Multi-Sensory Learning",ar:"التعلم متعدد الحواس"},
+  {en:"Positive Suggestion",ar:"الإيحاء الإيجابي"},
+  {en:"Celebration Learning",ar:"الاحتفال بالتعلم"},
+  {en:"Physical Environment",ar:"البيئة المادية"},
+  {en:"Alpha State",ar:"حالة ألفا"},
+  {en:"Facilitator",ar:"الميسر"},
+  {en:"Learning Materials",ar:"المواد التعليمية"},
+  {en:"Flash Cards",ar:"البطاقات التعليمية"},
+  {en:"Preparation",ar:"الإعداد"},
+  {en:"Presentation",ar:"التقديم"},
+  {en:"Activation",ar:"التفعيل"},
+  {en:"Blended Learning",ar:"التعلم المدمج"},
+  {en:"Moodle",ar:"مودل"},
+  {en:"Blackboard",ar:"بلاك بورد"},
+  {en:"Engagement Tracking",ar:"تتبع التفاعل"},
+  {en:"Enrollment Rates",ar:"معدلات التسجيل"},
+  {en:"Completion Status",ar:"نسبة الإكمال"},
+  {en:"Time Spent",ar:"الوقت المستغرق"},
+  {en:"Tracking Performance",ar:"تتبع الأداء"},
+  {en:"Quizzes",ar:"اختبارات قصيرة"},
+  {en:"Post-Test",ar:"اختبار بعدي"},
+  {en:"Mastery Attempts",ar:"محاولات الإتقان"},
+  {en:"Assignment Grading",ar:"تقييم المهام"},
+  {en:"Learner Dashboard",ar:"لوحة المتدرب"},
+  {en:"Instructor Reports",ar:"تقارير المدرب"},
+  {en:"xAPI",ar:"واجهة تتبع التعلم"},
+  {en:"Automated Feedback",ar:"تغذية راجعة آلية"},
+  {en:"Soft Skills",ar:"المهارات الناعمة"},
+  {en:"Collaborative Learning",ar:"التعلم التعاوني"},
+  {en:"Interactive Lecture",ar:"المحاضرة التفاعلية"},
+  {en:"Guided Questioning",ar:"التساؤل الموجه"},
+  {en:"Socratic Method",ar:"الطريقة السقراطية"},
+  {en:"Assessment",ar:"التقييم التحصيلي"},
+  {en:"Kirkpatrick Model",ar:"نموذج كيركباتريك"},
+  {en:"Pre-Assessment",ar:"تقييم قبلي"},
+  {en:"Follow-up Evaluation",ar:"تقييم المتابعة"},
+  {en:"Surveys",ar:"الاستبيانات"},
+  {en:"Checklists",ar:"قوائم المراجعة"},
+  {en:"Rating Scales",ar:"مقاييس التقدير"},
+  {en:"Structured Observation",ar:"الملاحظة المنظمة"},
+  {en:"Portfolios",ar:"ملفات الإنجاز"},
+  {en:"Constructive Feedback",ar:"التغذية الراجعة البناءة"},
+  {en:"Recognition",ar:"الإدراك والاعتراف"},
+  {en:"Synergy Model",ar:"نموذج التكامل"},
+  {en:"RIASEC",ar:"نموذج هولاند المهني"},
+  {en:"Realistic",ar:"النمط الواقعي"},
+  {en:"Pace",ar:"وتيرة العمل"},
+  {en:"Skill Gap",ar:"فجوة المهارة"},
+  {en:"Knowledge Gap",ar:"فجوة المعرفة"},
+  {en:"CRM",ar:"إدارة علاقات العملاء"}
+];
+
+// ══════ BROWSE ══════
+let currentSort = 'default';
+
+function setSort(s) {
+  currentSort = s;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sort' + s.charAt(0).toUpperCase() + s.slice(1)).classList.add('active');
+  applyFilter();
+}
+
+function getSorted(list) {
+  if (currentSort === 'az') return [...list].sort((a,b) => a.en.localeCompare(b.en, 'en'));
+  if (currentSort === 'za') return [...list].sort((a,b) => b.en.localeCompare(a.en, 'en'));
+  return list;
+}
+
+function renderTerms(list) {
+  const sorted = getSorted(list);
+  const grid = document.getElementById('termsGrid');
+  grid.innerHTML = sorted.map((t,i) => `
+    <div class="term-card" onclick="speakTerm(this, '${t.en.replace(/'/g,"\\'")}')" title="اضغط للاستماع">
+      <span class="term-num">#${String(i+1).padStart(2,'0')}</span>
+      <div class="term-en">${t.en}</div>
+      <div class="term-ar">${t.ar}</div>
+      <span class="speak-icon">🔊</span>
+    </div>
+  `).join('');
+  document.getElementById('filteredCount').textContent = list.length;
+}
+
+function applyFilter() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) { renderTerms(TERMS); return; }
+  renderTerms(TERMS.filter(t => t.en.toLowerCase().includes(q) || t.ar.includes(q)));
+}
+
+function filterTerms() { applyFilter(); }
+
+// ══════ SPEECH ══════
+let currentUtterance = null;
+let speakingCard = null;
+let selectedVoice = null;
+let allVoices = [];
+
+// Male voice name patterns (common across browsers/OS)
+const MALE_PATTERNS = [
+  'daniel','david','mark','james','thomas','george','oliver',
+  'rishi','aaron','fred','alex','eric','guy','male',
+  'microsoft david','microsoft mark','microsoft george',
+  'google uk english male','reed','noel','eddy','luca','diego'
+];
+
+function scoreMaleVoice(v) {
+  const n = v.name.toLowerCase();
+  const isMale = MALE_PATTERNS.some(p => n.includes(p));
+  const isEnglish = v.lang.startsWith('en');
+  const isGoogle = n.includes('google');
+  const isNatural = n.includes('natural') || n.includes('premium') || n.includes('enhanced') || n.includes('neural');
+  let score = 0;
+  if (isEnglish) score += 10;
+  if (isMale) score += 8;
+  if (isGoogle) score += 3;
+  if (isNatural) score += 4;
+  if (v.lang === 'en-US') score += 2;
+  if (v.lang === 'en-GB') score += 1;
+  return score;
+}
+
+function loadVoices() {
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  allVoices = voices;
+
+  const engVoices = voices.filter(v => v.lang.startsWith('en'));
+  if (!engVoices.length) return;
+
+  // Sort by male+quality score
+  const sorted = [...engVoices].sort((a,b) => scoreMaleVoice(b) - scoreMaleVoice(a));
+
+  const sel = document.getElementById('voiceSelect');
+  sel.innerHTML = sorted.map((v,i) => {
+    const n = v.name.toLowerCase();
+    const isMale = MALE_PATTERNS.some(p => n.includes(p));
+    const tag = isMale ? ' 🔵 رجل' : ' 🔴 امرأة';
+    return `<option value="${v.name}">${v.name} (${v.lang})${tag}</option>`;
+  }).join('');
+
+  // Auto-select best male voice
+  const bestMale = sorted.find(v => MALE_PATTERNS.some(p => v.name.toLowerCase().includes(p)));
+  selectedVoice = bestMale || sorted[0];
+  sel.value = selectedVoice.name;
+}
+
+function onVoiceChange() {
+  const sel = document.getElementById('voiceSelect');
+  selectedVoice = allVoices.find(v => v.name === sel.value) || null;
+}
+
+function testVoice() {
+  speakText('Training and Learning', null);
+}
+
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  setTimeout(loadVoices, 300);
+}
+
+let currentSpeakCard = null;
+
+function speakTerm(card, text) {
+  if (window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    if (currentSpeakCard) currentSpeakCard.classList.remove('speaking');
+    if (currentSpeakCard === card) { currentSpeakCard = null; return; }
+  }
+  currentSpeakCard = card;
+  card.classList.add('speaking');
+  speakText(text, () => { card.classList.remove('speaking'); currentSpeakCard = null; });
+}
+
+function speakText(text, onEnd) {
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = 0.85;
+  utter.pitch = 0.9;
+  utter.volume = 1;
+  if (selectedVoice) utter.voice = selectedVoice;
+  utter.onend = () => { if (onEnd) onEnd(); };
+  utter.onerror = () => { if (onEnd) onEnd(); if (currentSpeakCard) { currentSpeakCard.classList.remove('speaking'); currentSpeakCard = null; } };
+  window.speechSynthesis.speak(utter);
+}
+
+document.getElementById('totalCount').textContent = TERMS.length;
+renderTerms(TERMS);
+
+// ══════ QUIZ ══════
+let quizMode = 'en'; // en=show English ask Arabic, ar=show Arabic ask English, mix=random
+let deck = [], qi = 0, correct = 0, wrong = 0;
+let answered = false;
+
+function setMode(m) {
+  quizMode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mode' + m.charAt(0).toUpperCase() + m.slice(1)).classList.add('active');
+  restartQuiz();
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function restartQuiz() {
+  correct = 0; wrong = 0; qi = 0; answered = false;
+  deck = document.getElementById('shuffleCheck').checked ? shuffle([...TERMS]) : [...TERMS];
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('finalScore').classList.remove('show');
+  document.getElementById('feedbackBox').className = 'feedback-box';
+  document.getElementById('nextBtn').disabled = true;
+  updateScoreBadges();
+  showQuestion();
+}
+
+function getDirection(idx) {
+  if (quizMode === 'mix') return Math.random() < 0.5 ? 'en' : 'ar';
+  return quizMode;
+}
+
+let currentDir = 'en';
+
+function showQuestion() {
+  if (qi >= deck.length) { showFinal(); return; }
+  answered = false;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('feedbackBox').className = 'feedback-box';
+
+  const t = deck[qi];
+  if (quizMode === 'mix') currentDir = Math.random() < 0.5 ? 'en' : 'ar';
+  else currentDir = quizMode;
+
+  const questionEl = document.getElementById('questionText');
+  if (currentDir === 'en') {
+    questionEl.textContent = t.en;
+    questionEl.className = 'question-text';
+    document.querySelector('.question-label').textContent = 'ما الترجمة العربية لهذا المصطلح؟';
+  } else {
+    questionEl.textContent = t.ar;
+    questionEl.className = 'question-text arabic-q';
+    document.querySelector('.question-label').textContent = 'ما الترجمة الإنجليزية لهذا المصطلح؟';
+  }
+
+  // Build wrong options (3 distractors)
+  const pool = TERMS.filter(x => x !== t);
+  shuffle(pool);
+  const distractors = pool.slice(0, 3);
+  const options = shuffle([t, ...distractors]);
+
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML = options.map(opt => {
+    const label = currentDir === 'en' ? opt.ar : opt.en;
+    const isCorrect = opt === t;
+    return `<button class="option-btn" onclick="checkAnswer(this, ${isCorrect}, '${t.en.replace(/'/g,"\\'")}', '${t.ar.replace(/'/g,"\\'")}')">
+      ${label}
+    </button>`;
+  }).join('');
+
+  const total = deck.length;
+  const done = qi;
+  document.getElementById('qNum').textContent = done + 1;
+  document.getElementById('qTotal').textContent = total;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('pctText').textContent = pct + '%';
+  document.getElementById('remainCount').textContent = total - done;
+}
+
+function checkAnswer(btn, isCorrect, enText, arText) {
+  if (answered) return;
+  answered = true;
+  document.getElementById('nextBtn').disabled = false;
+
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    const label = b.textContent.trim();
+    const correctLabel = currentDir === 'en' ? arText : enText;
+    if (label === correctLabel) b.classList.add('correct-ans');
+  });
+
+  const fb = document.getElementById('feedbackBox');
+  if (isCorrect) {
+    btn.classList.add('correct-ans');
+    correct++;
+    fb.className = 'feedback-box correct-fb show';
+    fb.textContent = '🎉 يا سلام! إجابة صحيحة ✅';
+    if (document.getElementById('soundCheck').checked) playSound(true);
+    if (correct % 5 === 0) launchConfetti();
+  } else {
+    btn.classList.add('wrong-ans');
+    wrong++;
+    fb.className = 'feedback-box wrong-fb show';
+    fb.textContent = `❌ حظ أوفر! الإجابة الصحيحة: ${currentDir === 'en' ? arText : enText}`;
+    if (document.getElementById('soundCheck').checked) playSound(false);
+  }
+  qi++;
+  updateScoreBadges();
+}
+
+function nextQuestion() {
+  document.getElementById('feedbackBox').className = 'feedback-box';
+  showQuestion();
+}
+
+function updateScoreBadges() {
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('remainCount').textContent = deck.length - qi;
+}
+
+function showFinal() {
+  document.getElementById('quizArea').style.display = 'none';
+  const fs = document.getElementById('finalScore');
+  fs.classList.add('show');
+  const pct = Math.round((correct / deck.length) * 100);
+  const ring = document.getElementById('scoreRing');
+  ring.style.setProperty('--pct', pct + '%');
+  ring.textContent = pct + '%';
+
+  let trophy, title, msg;
+  if (pct >= 90) { trophy='🏆'; title='ممتاز! أنت خبير التدريب!'; }
+  else if (pct >= 75) { trophy='🥇'; title='أحسنت! نتيجة رائعة!'; }
+  else if (pct >= 60) { trophy='🥈'; title='جيد! يمكنك التحسن أكثر!'; }
+  else { trophy='💪'; title='لا تيأس! أعد المحاولة!'; }
+
+  msg = `أجبت صحيحاً على ${correct} من ${deck.length} سؤال`;
+  document.getElementById('trophyEmoji').textContent = trophy;
+  document.getElementById('finalTitle').textContent = title;
+  document.getElementById('finalMsg').textContent = msg;
+
+  if (pct >= 75) launchConfetti();
+  updateScoreBadges();
+}
+
+// ══════ UTILS ══════
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  if (tab === 'browse') {
+    document.querySelector('.tab-btn.browse').classList.add('active');
+    document.getElementById('browsePanel').classList.add('active');
+  } else {
+    document.querySelector('.tab-btn.quiz').classList.add('active');
+    document.getElementById('quizPanel').classList.add('active');
+  }
+}
+
+function playSound(success) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = success ? 880 : 280;
+    osc.type = success ? 'sine' : 'sawtooth';
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch(e) {}
+}
+
+function launchConfetti() {
+  const colors = ['#c9a84c','#e8c76a','#f5dfa0','#8b5cf6','#22c55e','#3b82f6','#ef4444','#f59e0b'];
+  for (let i = 0; i < 40; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      top: -10px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      width: ${4 + Math.random() * 8}px;
+      height: ${4 + Math.random() * 8}px;
+      animation-duration: ${1.5 + Math.random() * 2}s;
+      animation-delay: ${Math.random() * 0.5}s;
+    `;
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+// Init
+restartQuiz();
+</script>
+</body>
+</html>
