@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة حقيبة الاستراتيجية المستديمة</title>
+    <!-- تضمين خط Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004e98; /* أزرق رئيسي احترافي */
+            --primary-dark: #002952;
+            --secondary: #3a86ff;
+            --bg-body: #f0f6fc; /* أبيض مزرق خفيف جداً لراحة العين */
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #334155;
+            --accent: #0284c7; /* أزرق مضيء للتمييز */
+            --border: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* تنسيق القائمة الجانبية */
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-card);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            z-index: 100;
+            overflow-y: auto;
+            border-left: 1px solid var(--border);
+        }
+
+        .brand {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .brand h1 { font-size: 1.3rem; font-weight: 800; }
+        .brand p { font-size: 0.95rem; margin-top: 0.5rem; opacity: 0.9; }
+
+        .nav-links { list-style: none; padding: 1.5rem 0; }
+        .nav-links li { padding: 0.3rem 1rem; }
+        .nav-links a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border-right: 4px solid transparent;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #e0f2fe;
+            color: var(--primary);
+            border-right-color: var(--primary);
+        }
+
+        /* تنسيق المحتوى الرئيسي */
+        .main-content {
+            margin-right: 320px;
+            padding: 3rem 5rem;
+            flex-grow: 1;
+            width: calc(100% - 320px);
+        }
+
+        .section-container {
+            display: none;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .section-container.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            margin-bottom: 2.5rem;
+            border-top: 6px solid var(--primary);
+        }
+
+        .quote-box {
+            background-color: #f8fafc;
+            border-right: 5px solid var(--accent);
+            padding: 1.8rem;
+            margin: 2rem 0;
+            font-size: 1.15rem;
+            font-style: italic;
+            border-radius: 8px;
+            color: var(--primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        h2 { color: var(--primary); font-size: 1.8rem; font-weight: 800; margin-bottom: 1.5rem; border-bottom: 2px dashed var(--border); padding-bottom: 15px; }
+        h3 { color: var(--text-main); font-size: 1.4rem; margin: 2rem 0 1rem; font-weight: 800; }
+        h4 { color: var(--primary); font-size: 1.2rem; margin: 1.5rem 0 0.5rem; font-weight: 700; }
+        
+        p { margin-bottom: 1.2rem; font-size: 1.1rem; }
+        
+        ul, ol { margin-right: 2rem; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        li { margin-bottom: 0.6rem; }
+
+        .highlight { color: var(--accent); font-weight: bold; }
+
+        /* تنسيق الجداول */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 1.2rem;
+            text-align: center;
+        }
+        th { background-color: var(--primary); color: white; font-weight: bold; font-size: 1.1rem; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: #e0f2fe; }
+
+        /* تنسيق الاختبار والاستبيان */
+        .quiz-question {
+            background: #f8fafc;
+            padding: 1.8rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        .quiz-options label {
+            display: block;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .quiz-options label:hover { background: #e0f2fe; border-color: #bae6fd; }
+        input[type="radio"] { margin-left: 12px; accent-color: var(--primary); transform: scale(1.2); }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            resize: vertical;
+            min-height: 120px;
+            font-size: 1.05rem;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 78, 152, 0.1); }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة الجانبية للنظام -->
+    <nav class="sidebar">
+        <div class="brand">
+            <h1>الاستراتيجية المستديمة</h1>
+            <p>في بناء البيئات التعليمية وتعديل السلوك</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active" data-target="intro">مقدمة ومؤشرات الأداء (ص 1)</a></li>
+            <li><a href="#" data-target="guide">دليل المدرب والأطر العامة (ص 2)</a></li>
+            <li><a href="#" data-target="units">الوحدات التدريبية المعتمدة (ص 2-3)</a></li>
+            <li><a href="#" data-target="kpis">مستند مؤشرات الأداء (ص 3-4)</a></li>
+            <li><a href="#" data-target="commandments">الوصايا العشر للمعلم (ص 4)</a></li>
+            <li><a href="#" data-target="rules">شروط وقواعد الاجتياز (ص 4-5)</a></li>
+            <li><a href="#" data-target="exam">الاختبار المعرفي البعدي (ص 5-6)</a></li>
+            <li><a href="#" data-target="evaluation">استمارة التقييم النهائي (ص 6)</a></li>
+        </ul>
+    </nav>
+
+    <!-- المحتوى الرئيسي (حسب النص المرفق حرفياً) -->
+    <main class="main-content">
+        
+        <!-- صفحة 1: المقدمة والمؤشرات الأولى -->
+        <section id="intro" class="section-container active">
+            <div class="card">
+                <h2>مقدمة الحقيبة التدريبية: قصة الأثر الممتد من النبع الصافي إلى منبر العطاء</h2>
+                <div class="quote-box">
+                    "التعليم أثر لا ينتهي بتقاعد معلم، بل يمتد في حياة كل طالب تعلم منه".<br>
+                    <small>- الأستاذ ظافر بن صالح آل سعد</small>
+                </div>
+                <p>لم تكن هذه الحقيبة وليدة نظريات جافة صيغت خلف المكاتب، بل هي خلاصة حصاد عمر ونضج تجربة تربوية فريدة.</p>
+                <p>انطلقت شرارتها الأولى من بيئة العبقرية الفطرية بين الحقول والمزارع (براً بالوالدين)، لتثبت أن العطاء لا تحده الإمكانيات.</p>
+                <p>ثم استقرت وتوجت هذه الخبرة بخمس سنوات ذهبية في ثانوية الفتح بمنطقة نجران حتى التقاعد عام ٢٠٢٥م، تاركة خلفها إرثاً من الابتكارات الحية وبراءة اختراع وطنية، وجيلاً عابراً للقارات من الأطباء والقادة الذين ما زالوا يحملون الولاء لمعلمهم.</p>
+                <p>إنها دعوة لكل معلم ليكون "النبع الصافي" في مدرسته.</p>
+
+                <h3>مستند مؤشرات الأداء (KPIS) وأدوات قياس الأثر الميداني</h3>
+                <p>لضمان نجاح الحقيبة عند تطبيقها في المدارس، تم بناء أربعة مؤشرات رئيسية يقيس بها المشرف أو المعلم أثر التدريب</p>
+                
+                <h4>1 مؤشر الأمان النفسي والارتباط الوجداني (يقيس أثر الوحدة الأولى)</h4>
+                <ul>
+                    <li><strong>المعيار :</strong> مدى تحسن دافعية الطلاب وبيئة الصف النفسية.</li>
+                    <li><strong>أداة القياس :</strong> استمارة ملاحظة صفية (رصد استخدام المعلم لاستراتيجية زهرة الجيب وألقاب المستقبل).</li>
+                    <li><strong>المستهدف :</strong> انخفاض نسبة غياب الطلاب في حصة المعلم المتدرب بنسبة ٢٠٪، وارتفاع معدل المشاركة الطوعية.</li>
+                </ul>
+
+                <h4>2 مؤشر نمو الرقابة الذاتية (يقيس أثر الوحدة الثانية)</h4>
+                <ul>
+                    <li><strong>المعيار :</strong> تحول نظام ضبط الصف من العقاب الخارجي إلى التقييم الذاتي.</li>
+                    <li><strong>أداة القياس :</strong> استمارة "ميزان السلوك اليومي" (السرية).</li>
+                    <li><strong>المستهدف :</strong> انخفاض المخالفات السلوكية اللفظية والحركية داخل الفصل بنسبة ٣٠٪ خلال الفصل الدراسي الأول من التطبيق.</li>
+                </ul>
+
+                <h4>3 مؤشر كفاءة الابتكار منخفض التكلفة (يقيس أثر الوحدة الثالثة)</h4>
+                <ul>
+                    <li><strong>المعيار :</strong> قدرة المعلم على تفعيل مجسمات تفاعلية ودمج منهجية STEM بأقل الخامات.</li>
+                    <li><strong>أداة القياس :</strong> بطاقة تقييم الوسائل التعليمية (معيار الابتكار والتدوير).</li>
+                    <li><strong>المستهدف :</strong> إنتاج المعلم المتدرب لوسيلتين تفاعليتين على الأقل محاكية لمجسم الدورة الدموية أو موقف الكرسي في كل فصل دراسي.</li>
+                </ul>
+
+                <h4>4 مؤشر استدامة المعرفة وعمق النواتج (يقيس الأثر التحصيلي)</h4>
+                <ul>
+                    <li><strong>المعيار :</strong> بقاء المعلومة في ذاكرة الطلاب طويلة المدى.</li>
+                    <li><strong>أداة القياس :</strong> الاختبارات التشخيصية القصيرة (القبلية والبعدية المدارة عبر أدوات المعلم أو فلسفة الطاولة الإلكترونية).</li>
+                    <li><strong>المستهدف :</strong> ارتفاع درجات الطلاب في المفاهيم العلمية الصعبة بنسبة لا تقل عن ٢٥٪ مقارنة بالطرق التقليدية.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- صفحة 2: دليل المدرب والأطر -->
+        <section id="guide" class="section-container">
+            <div class="card">
+                <h2>دليل المدرب المعتمد: حقيبة "الاستراتيجية المستديمة"</h2>
+                <p>في بناء البيئات التعليمية وتعديل السلوك</p>
+                <p>مستوحاة من المسيرة الميدانية لـ: الأستاذ ظافر بن صالح آل سعد (ثانوية الفتح، نجران)</p>
+                
+                <h3>أولاً: التمهيد الوجداني (قصة الأثر الممتد)</h3>
+                <div class="quote-box">" التعليم أثر لا ينتهي بتقاعد معلم، بل يمتد في حياة كل طالب تعلم منه".</div>
+                <p>لم تكن هذه الحقيبة وليدة نظريات جافة، بل هي خلاصة حصاد عمر ونضج تجربة تربوية فريدة.</p>
+                <p>انطلقت من بيئة العبقرية الفطرية بين الحقول والمزارع (براً بالوالدين)، لتثبت أن العطاء لا تحده قلة الإمكانيات.</p>
+                <p>ثم توجت بخمس سنوات ذهبية في ثانوية الفتح بمنطقة نجران حتى التقاعد عام ٢٠٢٥م، تاركة خلفها إرثاً من الابتكارات الحية وبراءة اختراع وطنية (الطاولة الإلكترونية)، وجيلاً عابراً للقارات من الأطباء والقادة الذين يحملون الوفاء لمعلمهم.</p>
+
+                <h3>ثانياً : الأطر العامة للحقيبة التدريبية</h3>
+                <ul>
+                    <li><strong>الهدف العام :</strong> تمكين المعلمين من بناء بيئات صفية جاذبة، وتعديل سلوك الطلاب عبر أدوات الرقابة الذاتية والابتكار التكاملي منخفض التكلفة.</li>
+                    <li><strong>الفئة المستهدفة :</strong> المعلمون، المعلمون الجدد، المشرفون التربويون، وقادة المدارس.</li>
+                    <li><strong>المدة المقترحة :</strong> 3 أيام تدريبية (بمعدل 4 ساعات يومياً - إجمالي ١٢ ساعة تدريبية).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- صفحة 2-3: الوحدات التدريبية -->
+        <section id="units" class="section-container">
+            <div class="card">
+                <h2>ثالثاً: الوحدات التدريبية المعتمدة والأدلة الإجرائية</h2>
+                
+                <h3>الوحدة الأولى: أنسنة التعليم والذكاء العاطفي (اليوم الأول)</h3>
+                <p><strong>التأصيل التربوي :</strong> نظرية الذكاء العاطفي لـ (دانيال جولمان) وهرم (ماسلو) للاحتياجات الإنسانية.</p>
+                <p><strong>التطبيقات الإجرائية:</strong></p>
+                <ol>
+                    <li>استراتيجية "زهرة الجيب" : يضع المعلم زهرة طبيعية نضرة في جيب سترته الصباحي ويهديها طوعاً لطلاب الميدان المتميزين أو من يحتاجون لدعم معنوي؛ لكسر جمود السلطة المدرسية وبناء الأمان النفسي.</li>
+                    <li>استراتيجية "ألقاب المستقبل" : حصر طموحات الطلاب المهنية (دكتور، مهندس، طيار) ومخاطبتهم بها رسمياً داخل الفصل، لصناعة إسقاط نفسي إيجابي يدفع الطالب تلقائياً لالتزام سلوك القمة.</li>
+                </ol>
+                <p><strong>النشاط التدريبي :</strong> لعب أدوار (محاكاة صفية بين التعليم التقليدي الجاف والتعليم الإنساني القائم على الابتكارات الوجدانية).</p>
+
+                <hr style="border:0; border-top:1px solid var(--border); margin: 2rem 0;">
+
+                <h3>الوحدة الثانية: فلسفة النحل وهندسة الرقابة الذاتية (اليوم الثاني)</h3>
+                <p><strong>التأصيل التربوي :</strong> النظرية المعرفية الاجتماعية لـ (ألبرت باندورا - مفهوم الضبط الذاتي Self-Regulation).</p>
+                <p><strong>التطبيقات الإجرائية:</strong></p>
+                <ol>
+                    <li>استراتيجية "المقارنة القياسية" (النحل ضد الذباب) : عقد ورشة تفاعلية يقارن فيها الطلاب بين مجتمع النحل (نظام، وعمل، وتحليق نحو الطيب) ومجتمع الذباب (فوضى وعين لا تقع إلا على النقص).</li>
+                    <li>أداة "ميزان السلوك اليومي والسري" : بطاقة تقييم ذاتي يضع فيها الطالب (سراً) علامة لتقييم أدائه في نهاية اليوم: هل تصرف كـ (نحلة منتجة) أم كـ (ذبابة فوضوية)؟ مما ينمي وازعه الداخلي دون عقاب خارجي.</li>
+                    <li>استراتيجيات التناغم (البوتقة والبذور) : صهر جهود الإدارة والطلاب في بوتقة إنتاج واحدة، والتعامل مع كل متعلم كـ (بذرة) "فريدة" تسقى بالحب والعلم التفاعلي لتخرج ثمارها الطيبة.</li>
+                </ol>
+                <p><strong>النشاط التدريبي :</strong> دراسة حالة (تصميم خطة تدخل تربوي لطالب فوضوي باستخدام أسلوب التعزيز اللامادي وميزان السلوك).</p>
+
+                <hr style="border:0; border-top:1px solid var(--border); margin: 2rem 0;">
+
+                <h3>الوحدة الثالثة: الابتكار التطبيقي والتكامل العلمي (STEM) والتحول الرقمي (اليوم الثالث)</h3>
+                <p><strong>التأصيل التربوي :</strong> النظرية البنائية لـ (بياجيه) و(جون ديوي - التعلم بالعمل) ومنهجية التكامل المعرفي (STEM).</p>
+                <p><strong>التطبيقات الإجرائية:</strong></p>
+                <ol>
+                    <li>نموذج الدورة الدموية الميكانيكي : تصميم شبكة أنابيب بمضخات يدوية محاكية للقلب واستخدام (الفيمتو) للدم المؤكسج و (النيلة) للدم غير المؤكسج؛ لترسيخ المعلومة في ذاكرة المدى الطويل.</li>
+                    <li>النمذجة الجسدية (موقف الكرسي) : جلوس المعلم مع الطالب على نفس المقعد لإثبات قانون فيزيائي ملموس: "لا يمكن لجسمين شغل نفس الحيز في آن واحد."</li>
+                    <li>رحلة "الطاولة الإلكترونية الذكية" (براءة الاختراع):
+                        <ul>
+                            <li>قبل الدرس : تفعيل التهيئة والإثارة عبر لغز رقمي.</li>
+                            <li>أثناء الدرس : عرض نماذج المحاكاة والنمذجة ثلاثية الأبعاد.</li>
+                            <li>بعد الدرس : إجراء التقييمات السريعة وضمان استدامة الأثر المعرفي.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><strong>النشاط التدريبي :</strong> تحدي STEM منخفض التكلفة (ورشة عمل لابتكار وسائل تعليمية بمواد بيئية بسيطة ومعاد تدويرها).</p>
+            </div>
+        </section>
+
+        <!-- صفحة 3-4: مستند مؤشرات الأداء مرة أخرى كما ورد -->
+        <section id="kpis" class="section-container">
+            <div class="card">
+                <h2>رابعاً: مستند مؤشرات الأداء (KPIs) لضمان الأثر الميداني</h2>
+                <ul>
+                    <li><strong>١. مؤشر الارتباط الوجداني :</strong> انخفاض نسبة غياب الطلاب في حصة المعلم المتدرب بنسبة ٢٠% بفضل بيئة الأمان النفسي.</li>
+                    <li><strong>٢. مؤشر نمو الرقابة الذاتية :</strong> انخفاض المخالفات السلوكية داخل الفصل بنسبة ٣٠% لاعتماد الطلاب على ميزان السلوك السري.</li>
+                    <li><strong>٣. مؤشر كفاءة الابتكار :</strong> التزام المعلم بإنتاج وسيلتين تفاعليتين على الأقل منخفضة التكلفة في كل فصل دراسي.</li>
+                    <li><strong>٤. مؤشر استدامة المعرفة :</strong> ارتفاع درجات الطلاب في المفاهيم العلمية الصعبة بنسبة لا تقل عن ٢٥٪ عبر أدوات المحاكاة والنمذجة.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- صفحة 4: الوصايا العشر -->
+        <section id="commandments" class="section-container">
+            <div class="card">
+                <h2>أولاً : الوصايا العشر لمعلم الاستراتيجية المستديمة (خاتمة الدليل)</h2>
+                <p>لتكون معلماً مستدام الأثر، مقتفياً أثر الأستاذ ظافر آل سعد، اجعل هذه الوصايا دستورك اليومي:</p>
+                <ol>
+                    <li><strong>انظر للتعليم كرسالة حياة :</strong> تذكر دائماً أن أثرك التربوي يمتد عابراً للقارات والأجيال، ولا يحده تقاعد أو مكان.</li>
+                    <li><strong>أنسن تعليمك أولاً :</strong> ابن الجسور العاطفية ووفر الأمان النفسي داخل صفك قبل أن تبدأ بشرح أي معلومة أكاديمية.</li>
+                    <li><strong>ازرع الهوية المستقبلية :</strong> ناد طلابك بألقاب طموحاتهم (يا دكتور، يا مهندس)، فالعقل يلتزم بالهوية التي يراها في عيون معلمه.</li>
+                    <li><strong>كن نبعاً صافياً للإلهام :</strong> حوّل بيئتك المحلية وظروفك المحيطة إلى مصدر للحكمة والعلوم، ولا تجعل نقص الإمكانيات عائقاً.</li>
+                    <li><strong>ربِّ على "فلسفة النحل" :</strong> اغرس في طلابك مفاهيم النظام والإنتاج النافع، وحلق بهم بعيداً عن فوضى وتتبع العيوب.</li>
+                    <li><strong>اصهر الفروق في بوتقة واحدة :</strong> اجعل من فصلك خلية نحل متناغمة، تعمل فيها كل الأطراف لإنتاج مخرجات تخدم المجتمع.</li>
+                    <li><strong>ارع البذور بالحب :</strong> تعامل مع كل طالب كبذرة فريدة، تحتاج لسقيا مخصصة من العلم والاحتواء لتثمر.</li>
+                    <li><strong>استبدل العقاب بالرقابة الذاتية :</strong> مكن الطالب من نقد مساره سراً (عبر ميزان السلوك)، ليتحول الضمير السلوكي لديه من الخوف إلى الحياء.</li>
+                    <li><strong>ابتكر بأقل التكاليف :</strong> اصنع من أدواتك البسيطة كالكرسي أو السوائل الملونة تجارب حية تلمس وتعاش لتبسيط أعتى العلوم.</li>
+                    <li><strong>واكب العصر رقمياً :</strong> لا تقف عند الممارسات التقليدية، بل طوّر أدواتك لتواكب التعليم الرقمي الذكي وتضمن استدامة عطائك.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- صفحة 4-5: شروط وقواعد الاجتياز -->
+        <section id="rules" class="section-container">
+            <div class="card">
+                <h2>ثانياً : شروط وقواعد اجتياز البرنامج (للحصول على الشهادة المعتمدة)</h2>
+                <p>لضمان مأسسة الحقيبة وتحقيق أهدافها الميدانية، يُشترط لاجتياز المعلم المتدرب وحصوله على شهادة الاعتماد ما يلي:</p>
+                
+                <h3>1 نسبة الحضور والتفاعل (30 درجة)</h3>
+                <ul>
+                    <li>يشترط حضور ما لا يقل عن 90% من الساعات التدريبية الفعلية للبرنامج (11 ساعة من أصل 12 ساعة).</li>
+                    <li>المشاركة النشطة في ورش العمل ولعب الأدوار خلال الأيام الثلاثة.</li>
+                </ul>
+
+                <h3>2 المشروع العملي التطبيقي (40 درجة)</h3>
+                <p><strong>المطلوب :</strong> يلزم كل متدرب في اليوم الأخير بتقديم حقيبة مصغرة تشتمل على:</p>
+                <ul>
+                    <li>تصميم وسيلة تعليمية واحدة منخفضة التكلفة مستوحاة من بيئته المحلية لشرح مفهوم علمي مجرد في تخصصه.</li>
+                    <li>بناء نموذج لـ "ميزان السلوك اليومي" يتناسب مع المرحلة العمرية لطلابه.</li>
+                </ul>
+
+                <h3>3 الاختبار المعرفي البعدي (30 درجة)</h3>
+                <p>خوض اختبار تحريري / إلكتروني شامل في نهاية البرنامج التدريبي يقيس مدى استيعاب المتدرب لـ:</p>
+                <ul>
+                    <li>الأركان الأربعة للاستراتيجية المستديمة.</li>
+                    <li>النظريات التربوية الداعمة (البنائية، الذكاء العاطفي، الضبط الذاتي).</li>
+                </ul>
+                <p><strong>درجة النجاح :</strong> يُشترط الحصول على 80% كحد أدنى من إجمالي درجات الاختبار.</p>
+            </div>
+        </section>
+
+        <!-- صفحة 5-6: الاختبار المعرفي البعدي -->
+        <section id="exam" class="section-container">
+            <div class="card">
+                <h2>أولاً: الاختبار المعرفي البعدي (مواقف تربوية لقياس عمق الفهم)</h2>
+                <p>عزيزي المتدرب، يرجى اختيار الإجابة الأكثر دقة بناءً على فلسفة "الاستراتيجية المستديمة":</p>
+                
+                <div class="quiz-question">
+                    <p><strong>س 1 : لاحظت أن أحد طلابك يعاني من ضعف تقدير الذات والانطواء، مما أثر على تحصيله. الإجراء الأنسب وفق الاستراتيجية هو:</strong></p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q1"> (أ) توجيهه مباشرة للمرشد الطلابي لعلاج المشكلة.</label>
+                        <label><input type="radio" name="q1"> (ب) مناداته بـ "لقب طموحه المستقبلي" أمام زملائه لإحداث إسقاط نفسي إيجابي يحفز دافعيته.</label>
+                        <label><input type="radio" name="q1"> (ج) منحه درجات إضافية دون مقابل لرفع معنوياته.</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>س 2 : عند تطبيق أداة "ميزان السلوك اليومي"، ما هو الأسلوب الصحيح لإدارة التقييم لضمان نمو الرقابة الذاتية؟</strong></p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q2"> (أ) جمع البطاقات وإعلان أسماء الطلاب أصحاب "سلوك الذبابة" أمام الصف لتأديبهم.</label>
+                        <label><input type="radio" name="q2"> (ب) ترك التقييم سراً تاماً بين الطالب ونفسه، ليتأمل سلوكه ويعدله دون خوف من العقاب الخارجي.</label>
+                        <label><input type="radio" name="q2"> (ج) إلغاء البطاقات والاعتماد على ملاحظة المعلم المباشرة فقط.</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>س 3: واجهتك مشكلة نقص الإمكانيات والميزانية في مختبر المدرسة لتبسيط مفهوم علمي مجرد. التصرف السليم هو:</strong></p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q3"> (أ) تخطي الجانب العملي والتركيز على الشرح النظري والحفظ.</label>
+                        <label><input type="radio" name="q3"> (ب) ابتكار مجسم ميكانيكي تفاعلي باستخدام خامات بيئية منخفضة التكلفة (مثل محاكاة الدورة الدموية بالفيمتو والنيلة).</label>
+                        <label><input type="radio" name="q3"> (ج) كتابة خطابات لإدارة التعليم وانتظار توفير الميزانية.</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>س 4: تستند "فلسفة النحل" في الإدارة الصفية إلى نظرية تربوية تهدف إلى:</strong></p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q4"> (أ) تفعيل العقاب البدني واللفظي الصارم لضبط الصف.</label>
+                        <label><input type="radio" name="q4"> (ب) نقل المتعلم إلى مرحلة الضبط الذاتي والسلوك الموجه ذاتياً بناء على الوعي القيمي.</label>
+                        <label><input type="radio" name="q4"> (ج) التركيز على رصد المخالفات السلوكية وعيوب الطلاب أولاً بأول.</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- صفحة 6: استمارة التقييم -->
+        <section id="evaluation" class="section-container">
+            <div class="card">
+                <h2>ثانياً: استمارة التقييم النهائي ورصد رأي المتدربين</h2>
+                <p>أخي المتدرب، رأيك يسهم في تطوير الأثر التربوي المستدام. يرجى وضع علامة (√) أمام التقييم المناسب :</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>م</th>
+                            <th>المعيار المستهدف للتقييم</th>
+                            <th>موافق بشدة</th>
+                            <th>موافق</th>
+                            <th>محايد</th>
+                            <th>غير موافق</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>محتوى الحقيبة : يدمج ببراعة بين الجانب الوجداني الإنساني والابتكار العلمي المعاصر.</td>
+                            <td><input type="radio" name="e1"></td>
+                            <td><input type="radio" name="e1"></td>
+                            <td><input type="radio" name="e1"></td>
+                            <td><input type="radio" name="e1"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>الواقعية : الأفكار المطروحة (كالزهرة، الكرسي، الميزان) قابلة للتطبيق الفوري في فصلي.</td>
+                            <td><input type="radio" name="e2"></td>
+                            <td><input type="radio" name="e2"></td>
+                            <td><input type="radio" name="e2"></td>
+                            <td><input type="radio" name="e2"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>العمق التربوي : التأصيل النظري (البنائية، الذكاء العاطفي) يبرر الممارسات الميدانية بوضوح.</td>
+                            <td><input type="radio" name="e3"></td>
+                            <td><input type="radio" name="e3"></td>
+                            <td><input type="radio" name="e3"></td>
+                            <td><input type="radio" name="e3"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>المدرب والأداء : نجح المدرب في نقل قصة نجاح "ثانوية الفتح" بشكل ملهم ومقنع.</td>
+                            <td><input type="radio" name="e4"></td>
+                            <td><input type="radio" name="e4"></td>
+                            <td><input type="radio" name="e4"></td>
+                            <td><input type="radio" name="e4"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>الاستدامة : الأنشطة وورش العمل أكسبتني مهارة ابتكار وسائل منخفضة التكلفة من بيئتي.</td>
+                            <td><input type="radio" name="e5"></td>
+                            <td><input type="radio" name="e5"></td>
+                            <td><input type="radio" name="e5"></td>
+                            <td><input type="radio" name="e5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 2rem;">
+                    <label><strong>أكثر جزء في الحقيبة أحدث فيك أثراً وتنوي نقله لطلابك :</strong></label>
+                    <textarea placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <label><strong>مقترحاتك الإضافية لتطوير هذه الاستراتيجية المستديمة :</strong></label>
+                    <textarea placeholder="اكتب مقترحاتك هنا..."></textarea>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- سكريبت التنقل بين الأقسام -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = document.querySelectorAll('.section-container');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
